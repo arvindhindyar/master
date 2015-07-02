@@ -26,12 +26,12 @@
     overflow: auto;
 }
 .txtDiv {
-    height: 15%;
+    height: 10%;
     width: 80%;
     border-style: solid;
     border-color: #ff0000;
     position: fixed !important;
-    top: 90;
+    top: 20;
     right: 0;
     bottom: 0;
     left: 21;
