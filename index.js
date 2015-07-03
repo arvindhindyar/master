@@ -33,8 +33,8 @@ io.on('connection', function(client){
 		client.emit("update", "You have connected to the Public Group.");
 
 		client.broadcast.to('Public Group').emit("update", name + " has joined the conversation.");
-		client.emit("update-people", people);
-		client.emit('updategroups', rooms, 'Public Group');
+		io.emit("update-people", people);
+		io.emit('updategroups', rooms, 'Public Group');
     
   });
   
@@ -75,6 +75,7 @@ io.on('connection', function(client){
 		
 				if(value.name == client.room){
 					value.users.push(username);
+					io.emit('updateusergroups', username,client.room);
 				}
 			});
 		

@@ -75,6 +75,7 @@ $(document).ready(function(){
 		
 		// listener, whenever the server emits 'updaterooms', this updates the room the client is in
 		socket.on('updategroups', function(groups, current_group) {
+		
 			$('#rooms').empty();
 			groups.forEach( function( value) {
 			function checkuser(element, index, array)
@@ -83,17 +84,26 @@ $(document).ready(function(){
 			
 			if(value.users.some(checkuser)){
 			
-		
+					
 					if(value.name == current_group){
 						$('#rooms').append('<li>' + value.name + '<input type="button" class="adduserButton" value="Add user"/></li>');
 					}
 					else {
-						$('#rooms').append('<li class="groupName">' + value.name + '</li>');
+						$('#rooms').append('<li class="groupName"><a href=#>' + value.name + '</a></li>');
 					}
 				}
 			});
 			
 		});
+		
+		socket.on('updateusergroups', function(user,groupname) {
+			
+			if(user==username){
+						$('#rooms').append('<li class="groupName"><a href=#>' + groupname + '</a></li>');
+				}
+			});
+			
+		
 
 	
 		$(document).on("click", ".groupName", function(){ 
