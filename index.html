@@ -8,6 +8,7 @@
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
+var username;
 $(document).ready(function(){  
         var socket = io.connect("localhost:3000");
         $("#chat").hide();
@@ -35,6 +36,7 @@ $(document).ready(function(){
             if(e.which == 13) {
                 var name = $("#name").val();
                 if (name != "") {
+				username = name;
                     socket.emit("join", name);
                     ready = true;
                     $("#login").detach();
@@ -50,6 +52,7 @@ $(document).ready(function(){
         })
 
         socket.on("update-people", function(people){
+		
             if(ready) {
                 $("#people").empty();
                 $.each(people, function(clientid, name) {
@@ -69,8 +72,39 @@ $(document).ready(function(){
             $("#msg").attr("disabled", "disabled");
             $("#send").attr("disabled", "disabled");
         });
+		
+		// listener, whenever the server emits 'updaterooms', this updates the room the client is in
+		socket.on('updategroups', function(groups, current_group) {
+			$('#rooms').empty();
+			groups.forEach( function( value) {
+			function checkuser(element, index, array)
+			{	
+			return element == username;}
+			
+			if(value.users.some(checkuser)){
+			
+		
+					if(value.name == current_group){
+						$('#rooms').append('<li>' + value.name + '<input type="button" class="adduserButton" value="Add user"/></li>');
+					}
+					else {
+						$('#rooms').append('<li class="groupName">' + value.name + '</li>');
+					}
+				}
+			});
+			
+		});
 
+	
+		$(document).on("click", ".groupName", function(){ 
+        var clickedGroup = $(this).text();
+            socket.emit('switchGroup', clickedGroup);
+		}); 
 
+		$(document).on("click", ".adduserButton", function(){ 
+        socket.emit('addUserToGroup', prompt("Enter Username "));
+		});
+		
         $("#send").click(function(){
             var msg = $("#msg").val();
             socket.emit("send", msg);
@@ -85,6 +119,13 @@ $(document).ready(function(){
                 $("#msg").val("");
             }
         });
+		
+		$("#addGroupButton").click(function(){
+			var name = prompt("Enter new group name ");
+			if (name != "" || name != null) {
+			socket.emit('addGroup', name);
+			}
+        });
 
     });
 </script>
@@ -94,6 +135,11 @@ $(document).ready(function(){
   <div >
  <div class="userList">
       <ul id="people" style="list-style-type:none"></ul>
+  </div>
+  <div class="groupList">
+	<b>Groups</b> <input type="button" id="addGroupButton" value="Add Group"/>
+      <ul id="rooms" style="list-style-type:none">
+	  </ul>
   </div>
   <div class="msgsList" id="msgsDiv">
       <ul id="msgs" style="list-style-type:none">
