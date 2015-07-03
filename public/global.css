@@ -11,6 +11,20 @@
     left: 0;
     overflow: auto;
 }
+
+.groupList {
+    height: 40%;
+    background: #f0e68c;
+    width:20%;
+    border-style: solid;
+    border-color: #ff0000;
+    position:fixed !important;
+	top:20;
+	right:0;
+	bottom:0;
+	left:0;
+}
+
 .msgsList {
     height: 80%;
     background: #fffffc;
