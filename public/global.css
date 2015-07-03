@@ -1,0 +1,95 @@
+.userList {
+    height: 80%;
+    background: #f0e68c;
+    width: 20%;
+    border-style: solid;
+    border-color: #ff0000;
+    position: fixed !important;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+}
+.msgsList {
+    height: 80%;
+    background: #fffffc;
+    width: 80%;
+    border-style: solid;
+    border-color: #ff0000;
+    position: fixed !important;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 21;
+    font: 16px/26px Georgia, Garamond, Serif;
+    overflow: auto;
+}
+.txtDiv {
+    height: 10%;
+    width: 80%;
+    border-style: solid;
+    border-color: #ff0000;
+    position: fixed !important;
+    top: 20;
+    right: 0;
+    bottom: 0;
+    left: 21;
+}
+.black_overlay {
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 1001;
+    -moz-opacity: 0.8;
+    opacity: .80;
+    filter: alpha(opacity=80);
+}
+.white_content {
+    display: none;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    padding: 16px;
+    border: 16px solid orange;
+    background-color: white;
+    z-index: 1002;
+    overflow: auto;
+} 
+#send {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #63b8ee), color-stop(1, #468ccf));
+	background:-moz-linear-gradient(top, #63b8ee 5%, #468ccf 100%);
+	background:-webkit-linear-gradient(top, #63b8ee 5%, #468ccf 100%);
+	background:-o-linear-gradient(top, #63b8ee 5%, #468ccf 100%);
+	background:-ms-linear-gradient(top, #63b8ee 5%, #468ccf 100%);
+	background:linear-gradient(to bottom, #63b8ee 5%, #468ccf 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#63b8ee', endColorstr='#468ccf',GradientType=0);
+	background-color:#63b8ee;
+	display:inline-block;
+	cursor:pointer;
+	color:#14396a;
+	font-family:Arial;
+	font-size:18px;
+	font-weight:bold;
+	padding:20px 51px;
+	text-decoration:none;
+}
+.filebutton { 
+  user-select: none;
+  display: inline-block;
+  text-decoration: none;
+  background: #00b5d6;
+  border: 1px solid #00a5c3;
+  border-radius: 7px;
+  color: #fff;
+  font: 100 1.1em/1.3em "helvetica neue", helvetica, arial, sans-serif;
+  cursor: pointer;
+  padding: 2px 0 2px 0;
+  line-height: 1;
+}
