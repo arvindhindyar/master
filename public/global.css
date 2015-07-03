@@ -80,3 +80,16 @@
 	padding:20px 51px;
 	text-decoration:none;
 }
+.filebutton { 
+  user-select: none;
+  display: inline-block;
+  text-decoration: none;
+  background: #00b5d6;
+  border: 1px solid #00a5c3;
+  border-radius: 7px;
+  color: #fff;
+  font: 100 1.1em/1.3em "helvetica neue", helvetica, arial, sans-serif;
+  cursor: pointer;
+  padding: 2px 0 2px 0;
+  line-height: 1;
+}

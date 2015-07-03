@@ -46,7 +46,10 @@ $(document).ready(function(){
 
         socket.on("update", function(msg) {
             if(ready)
-                $("#msgs").append("<li>" + msg + "</li>");
+            {
+               // $("#msgs").append("<li>" + msg + "</li>");
+                $('#lines').append($('<p>').append($('<b>').text(who +': '), msg));
+                }
         })
 
         socket.on("update-people", function(people){
@@ -60,12 +63,13 @@ $(document).ready(function(){
 
         socket.on("chat", function(who, msg){
             if(ready) {
-                $("#msgs").append("<li>" + who + " says: " + msg + "</li>");
+               // $("#msgs").append("<li>" + who + " says: " + msg + "</li>");
+                 $('#lines').append($('<p>').append($('<b>').text(who +': '), msg));
             }
         });
 
         socket.on("disconnect", function(){
-            $("#msgs").append("The server is not available");
+            $("#lines").append("The server is not available");
             $("#msg").attr("disabled", "disabled");
             $("#send").attr("disabled", "disabled");
         });
@@ -76,6 +80,7 @@ $(document).ready(function(){
             socket.emit("send", msg);
             $("#msg").val("");
             $("#msgsDiv").scrollTop(10000);
+            $('#lines').get(0).scrollTop = $("#lines").get(0).scrollHeight;
         });
 
         $("#msg").keypress(function(e){
@@ -85,6 +90,22 @@ $(document).ready(function(){
                 $("#msg").val("");
             }
         });
+
+        socket.on('user image', image); 
+       function image (from, base64Image) {
+    $('#lines').append($('<p>').append($('<b>').text(from),'<img width="300" height="300" src="' + base64Image + '"/>'));
+  }
+  
+  $('#imagefile').bind('change', function(e){
+      var data = e.originalEvent.target.files[0];
+      var reader = new FileReader();
+      reader.onload = function(evt){
+        image('me', evt.target.result);
+        socket.emit('user image', evt.target.result);
+      };
+      reader.readAsDataURL(data);
+      
+    }); 
 
     });
 </script>
@@ -96,7 +117,12 @@ $(document).ready(function(){
       <ul id="people" style="list-style-type:none"></ul>
   </div>
   <div class="msgsList" id="msgsDiv">
-      <ul id="msgs" style="list-style-type:none">
+       <div id="messages">
+            <div id="nicknames"></div>
+            <div id="lines">
+            <ul id="msgs" style="list-style-type:none">
+            </div>
+         </div>
   </div>
 </div>
 <div style="float:top;">
@@ -112,9 +138,9 @@ $(document).ready(function(){
 
     <div class="txtDiv" id="chat">
         <form id="2" >
-       
-              <input type="text" style="height:58px; width:600px;" placeholder="Your message" id="msg">
-            <input type="button"  name="send" id="send" value="Send" >
+              <input type="text" style="height:58px; width:500px;" placeholder="Your message" id="msg">
+           <input type="button"  name="send" id="send" value="Send" >
+            <div class="filebutton">Send Image<input type="file" id="imagefile" accept="image/*"></div>
         </form>
     </div>
   </div>
