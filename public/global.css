@@ -28,7 +28,7 @@
 .msgsList {
     height: 80%;
     background: #fffffc;
-    width: 80%;
+    width: 79%;
     border-style: solid;
     border-color: #ff0000;
     position: fixed !important;
@@ -41,7 +41,7 @@
 }
 .txtDiv {
     height: 10%;
-    width: 80%;
+    width: 79%;
     border-style: solid;
     border-color: #ff0000;
     position: fixed !important;
