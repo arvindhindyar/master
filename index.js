@@ -96,9 +96,10 @@ io.on('connection', function(client){
 		client.emit('updategroups', rooms, newgroup);
 	});
 		
-		client.on('LOG', function (msg) {
-				console.log(msg);
-		});
+	client.on('sendPrivateMessage', function (sender, receiver, msg) {
+		console.log("received private msg" + msg);
+		io.emit('updatePrivateChat', sender, receiver, msg);
+	});
   
 });
 

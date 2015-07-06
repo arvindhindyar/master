@@ -60,7 +60,7 @@ $(document).ready(function(){
                 $("#people").empty();
                 $.each(people, function(clientid, name) {
 					if (name != username)
-                    $('#people').append("<li>" + name + "</li>");
+                    $('#people').append('<li class="userName"><a href=#>' + name + '</a></li>');
                 });
             }
         });
@@ -108,6 +108,13 @@ $(document).ready(function(){
 				}
 			});
 			
+		socket.on('updatePrivateChat', function(sender, receiver, msg) {
+			if(receiver == username){
+				document.getElementById('userName').innerHTML = sender;
+						$('#privateMsgList').append('<li>' + sender + ": " + msg + '</li>');
+				}
+			});
+			
 		
 
 	
@@ -120,12 +127,26 @@ $(document).ready(function(){
         socket.emit('addUserToGroup', prompt("Enter Username "));
 		});
 		
+		$(document).on("click", ".userName", function(){ 
+         var clickedUserName = $(this).text();
+		 document.getElementById('userName').innerHTML = clickedUserName;
+		 
+		});
+		
         $("#send").click(function(){
             var msg = $("#msg").val();
             socket.emit("send", msg);
             $("#msg").val("");
             $("#msgsDiv").scrollTop(10000);
             $('#lines').get(0).scrollTop = $("#lines").get(0).scrollHeight;
+        });
+		
+		$("#sendPrivate").click(function(){
+            var msg = $("#privateMsg").val();
+			var receiver = document.getElementById('userName').innerHTML;
+            $("#privateMsg").val("");
+			$('#privateMsgList').append('<li>me: ' + msg + '</li>');
+			socket.emit("sendPrivateMessage", username, receiver, msg);
         });
 
         $("#msg").keypress(function(e){
@@ -180,6 +201,19 @@ $(document).ready(function(){
             <ul id="msgs" style="list-style-type:none">
             </div>
          </div>
+  </div>
+  
+  <div class="privateChat" id="privateChatDiv">
+       <div id="privateMessages">
+			<h3><div id="userName"></div></h3>
+            <ul id="privateMsgList" style="list-style-type:none">
+			</ul>
+        
+         </div>
+		 <div>
+			<input type="text" style="height:25px; width:400px;" placeholder="Your message" id="privateMsg">
+           <input type="button"  name="send" id="sendPrivate" value="Send" >
+		 </div>
   </div>
 </div>
 <div style="float:top;">
