@@ -22,9 +22,6 @@ io.on('connection', function(client){
   client.on('join', function(name){
   people[client.id] = name;
 	
-
-
-
 	// store the username in the socket session for this client
 		client.username = name;
 	// store the room name in the socket session for this client
