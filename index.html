@@ -10,7 +10,7 @@
 <script>
 var username;
 $(document).ready(function(){  
-        var socket = io.connect("localhost:3000");
+        var socket = io.connect();
         $("#chat").hide();
         $("#name").focus();
         $("form").submit(function(event){
