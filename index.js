@@ -30,7 +30,7 @@ io.on('connection', function(client){
 		rooms[0].users.push(name);
 	// send client to public group
 		client.join('Public Group');
-		client.emit("update", "You have connected to the Public Group.");
+		client.emit("update",people[client.id], "You have connected to the Public Group.");
 
 		client.broadcast.to('Public Group').emit("update", name + " has joined the conversation.");
 		io.emit("update-people", people);
