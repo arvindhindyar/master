@@ -14,6 +14,7 @@
 
   <div >
  <div class="userList">
+	<h1><div id="currentUserName"></div></h1>
 	<b>Online Users</b>
       <ul id="people" style="list-style-type:none"></ul>
   </div>
@@ -52,7 +53,7 @@
         <form >
          <h1>Enter your name to join NODE Chat</h1>
               <input type="text"  placeholder="Your name" id="name">
-            <input type="button" name="join" id="join" value="Join" >
+            
         </form>
     </div>
 
@@ -95,6 +96,7 @@ $(document).ready(function(){
                 var name = $("#name").val();
                 if (name != "") {
 				username = name;
+				document.getElementById('currentUserName').innerHTML = name;
                     socket.emit("join", name);
                     ready = true;
                     $("#login").detach();
@@ -146,10 +148,11 @@ $(document).ready(function(){
 			return element == username;}
 			
 			if(value.users.some(checkuser)){
-			
-					
 					if(value.name == current_group){
-						$('#rooms').append('<li>' + value.name + '<input type="button" class="adduserButton" value="Add user"/></li>');
+						if(current_group != 'Public Group')
+							$('#rooms').append('<li>' + value.name + '<input type="button" class="adduserButton" value="Add user"/></li>');
+						else
+							$('#rooms').append('<li>' + value.name + '</li>');
 					}
 					else {
 						$('#rooms').append('<li class="groupName"><a href=#>' + value.name + '</a></li>');
@@ -199,13 +202,21 @@ $(document).ready(function(){
             $('#lines').get(0).scrollTop = $("#lines").get(0).scrollHeight;
         });
 		
-		$("#sendPrivate").click(function(){
+		$("#sendPrivate").click(sendPrivate);
+		
+		$("#privateMsg").keypress(function(e){
+            if(e.which == 13) {
+                sendPrivate();
+            }
+        });
+		
+		function sendPrivate(){
             var msg = $("#privateMsg").val();
 			var receiver = document.getElementById('userName').innerHTML;
             $("#privateMsg").val("");
 			$('#privateMsgList').append('<li>me: ' + msg + '</li>');
 			socket.emit("sendPrivateMessage", username, receiver, msg);
-        });
+        }
 
         $("#msg").keypress(function(e){
             if(e.which == 13) {

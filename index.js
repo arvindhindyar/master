@@ -43,7 +43,7 @@ io.on('connection', function(client){
     });
 
     client.on('user image', function (msg) {
-      client.broadcast.emit('user image', people[client.id], msg);
+      io.sockets.in(client.room).emit('user image', people[client.id], msg);
     });
 	client.on("disconnect", function(){
         io.sockets.emit("update", people[client.id] + " has left the server.");
@@ -97,8 +97,8 @@ io.on('connection', function(client){
 	});
 		
 	client.on('sendPrivateMessage', function (sender, receiver, msg) {
-		console.log("received private msg" + msg);
 		io.emit('updatePrivateChat', sender, receiver, msg);
+		
 	});
   
 });
