@@ -27,7 +27,7 @@
 }
 
 .privateChat {
-    height: 40%;
+    height: 75%;
     background: #f0e68c;
     width:20%;
     border-style: solid;
@@ -39,6 +39,7 @@
 	left:50;
 	overflow: auto;
 }
+
 
 .msgsList {
     height: 80%;

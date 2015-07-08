@@ -4,9 +4,14 @@
     <title>Socket.IO chat</title>
     <link rel="stylesheet" type="text/css" href="/global.css">
 
+<<<<<<< HEAD
 <script src="/socket.io-1.2.0.js"></script>
 <script src="/jquery-1.11.1.js"></script>
 <script src="/jquery.min.js"></script>
+=======
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
   </head>
   
@@ -14,7 +19,6 @@
 
   <div >
  <div class="userList">
-	<b>Online Users</b>
       <ul id="people" style="list-style-type:none"></ul>
   </div>
   <div class="groupList">
@@ -33,7 +37,6 @@
   
   <div class="privateChat" id="privateChatDiv">
        <div id="privateMessages">
-			<b>Click on a online user to chat privately</b>
 			<h3><div id="userName"></div></h3>
             <ul id="privateMsgList" style="list-style-type:none">
 			</ul>
@@ -65,6 +68,7 @@
     </div>
   </div>
 </div>
+>>>>>>> a5316c063e76a476718ce41a8de46f984754138f
 <script>
 var username;
 $(document).ready(function(){  
@@ -188,7 +192,7 @@ $(document).ready(function(){
 		$(document).on("click", ".userName", function(){ 
          var clickedUserName = $(this).text();
 		 document.getElementById('userName').innerHTML = clickedUserName;
-		 $('#privateMsgList').empty();
+		 
 		});
 		
         $("#send").click(function(){

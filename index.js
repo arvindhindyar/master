@@ -89,10 +89,10 @@ io.on('connection', function(client){
 		client.join(newgroup);
 		client.emit('update', 'you have connected to '+ newgroup);
 		// sent message to OLD room
-		client.broadcast.to(client.room).emit('update', client.username+' has left this room');
+		client.broadcast.to(client.room).emit('update', client.username+' has left this conversation');
 		// update socket session room title
 		client.room = newgroup;
-		client.broadcast.to(newgroup).emit('update', client.username+' has joined this room');
+		client.broadcast.to(newgroup).emit('update', client.username+' has joined this conversation');
 		client.emit('updategroups', rooms, newgroup);
 	});
 		
