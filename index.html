@@ -7,6 +7,62 @@
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+  </head>
+  
+  <body onload = "document.getElementById('login').style.display='block';document.getElementById('fade').style.display='block'">
+
+  <div >
+ <div class="userList">
+      <ul id="people" style="list-style-type:none"></ul>
+  </div>
+  <div class="groupList">
+	<b>Groups</b> <input type="button" id="addGroupButton" value="Add Group"/>
+      <ul id="rooms" style="list-style-type:none">
+	  </ul>
+  </div>
+  <div class="msgsList" id="msgsDiv">
+       <div id="messages">
+            <div id="nicknames"></div>
+            <div id="lines">
+            <ul id="msgs" style="list-style-type:none">
+            </div>
+         </div>
+  </div>
+  
+  <div class="privateChat" id="privateChatDiv">
+       <div id="privateMessages">
+			<h3><div id="userName"></div></h3>
+            <ul id="privateMsgList" style="list-style-type:none">
+			</ul>
+        
+         </div>
+		 <div>
+			<input type="text" style="height:25px; width:400px;" placeholder="Your message" id="privateMsg">
+           <input type="button"  name="send" id="sendPrivate" value="Send" >
+		 </div>
+  </div>
+</div>
+<div style="float:top;">
+    
+    
+    <div  id="login" class="white_content">
+        <form >
+         <h1>Enter your name to join NODE Chat</h1>
+              <input type="text"  placeholder="Your name" id="name">
+            <input type="button" name="join" id="join" value="Join" >
+        </form>
+    </div>
+
+    <div class="txtDiv" id="chat">
+        <form id="2" >
+              <input type="text" style="height:58px; width:500px;" placeholder="Your message" id="msg">
+           <input type="button"  name="send" id="send" value="Send" >
+            <div class="filebutton">Send Image<input type="file" id="imagefile" accept="image/*"></div>
+        </form>
+    </div>
+  </div>
+</div>
 <script>
 var username;
 $(document).ready(function(){  
@@ -46,7 +102,7 @@ $(document).ready(function(){
             }
         });
 
-        socket.on("update", function(msg) {
+        socket.on("update", function(who,msg) {
             if(ready)
             {
                // $("#msgs").append("<li>" + msg + "</li>");
@@ -182,60 +238,5 @@ $(document).ready(function(){
 
     });
 </script>
-  </head>
-  
-  <body onload = "document.getElementById('login').style.display='block';document.getElementById('fade').style.display='block'">
-  <div >
- <div class="userList">
-      <ul id="people" style="list-style-type:none"></ul>
-  </div>
-  <div class="groupList">
-	<b>Groups</b> <input type="button" id="addGroupButton" value="Add Group"/>
-      <ul id="rooms" style="list-style-type:none">
-	  </ul>
-  </div>
-  <div class="msgsList" id="msgsDiv">
-       <div id="messages">
-            <div id="nicknames"></div>
-            <div id="lines">
-            <ul id="msgs" style="list-style-type:none">
-            </div>
-         </div>
-  </div>
-  
-  <div class="privateChat" id="privateChatDiv">
-       <div id="privateMessages">
-			<h3><div id="userName"></div></h3>
-            <ul id="privateMsgList" style="list-style-type:none">
-			</ul>
-        
-         </div>
-		 <div>
-			<input type="text" style="height:25px; width:400px;" placeholder="Your message" id="privateMsg">
-           <input type="button"  name="send" id="sendPrivate" value="Send" >
-		 </div>
-  </div>
-</div>
-<div style="float:top;">
-    
-    
-    <div  id="login" class="white_content">
-        <form >
-         <h1>Enter your name to join NODE Chat</h1>
-              <input type="text"  placeholder="Your name" id="name">
-            <input type="button" name="join" id="join" value="Join" >
-        </form>
-    </div>
-
-    <div class="txtDiv" id="chat">
-        <form id="2" >
-              <input type="text" style="height:58px; width:500px;" placeholder="Your message" id="msg">
-           <input type="button"  name="send" id="send" value="Send" >
-            <div class="filebutton">Send Image<input type="file" id="imagefile" accept="image/*"></div>
-        </form>
-    </div>
-  </div>
-</div>
-
   </body>
 </html>
