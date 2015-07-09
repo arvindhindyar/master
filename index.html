@@ -202,7 +202,7 @@ $(document).ready(function(){
             $('#lines').get(0).scrollTop = $("#lines").get(0).scrollHeight;
         });
 		
-		$("#sendPrivate").click(sendPrivate);
+		$("#sendPrivate").click(sendPrivate());
 		
 		$("#privateMsg").keypress(function(e){
             if(e.which == 13) {
