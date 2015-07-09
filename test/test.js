@@ -24,7 +24,8 @@ describe("Chat Server",function(){
     });
 
     client2.on('update', function(usersName){
-		usersName.should.equal('You have connected to the Public Group.');
+		//usersName.should.equal('You have connected to the Public Group.');
+		usersName.should.equal(chatUser2);
 		client2.disconnect();
     });
   });
@@ -91,8 +92,9 @@ it('Connect to Public group by default', function(done){
     });
 
     client2.on('update', function(usersName){
+		usersName.should.equal(chatUser2);
       //usersName.should.equal(chatUser2 + " has joined.");
-		usersName.should.equal('You have connected to the Public Group.');
+		//usersName.should.equal('You have connected to the Public Group.');
       client2.disconnect();
 		});
    });
