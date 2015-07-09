@@ -28,7 +28,7 @@
 
 .privateChat {
     height: 75%;
-    background: #f0e68c;
+    background-image: url("/private.png");
     width:20%;
     border-style: solid;
     border-color: #ff0000;
@@ -43,7 +43,6 @@
 
 .msgsList {
     height: 80%;
-    background: #fffffc;
     width: 79%;
     border-style: solid;
     border-color: #ff0000;
@@ -84,11 +83,11 @@
     position: absolute;
     top: 25%;
     left: 25%;
-    width: 50%;
-    height: 50%;
+    width: 22.7%;
+    height: 36.5%;
     padding: 16px;
-    border: 16px solid orange;
-    background-color: white;
+    border: 5px solid orange;
+    background-image: url("/lets.png");
     z-index: 1002;
     overflow: auto;
 } 
@@ -123,3 +122,6 @@
   padding: 2px 0 2px 0;
   line-height: 1;
 }
+body {
+        background-image: url("/Image20.png");
+} 
