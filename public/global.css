@@ -10,6 +10,7 @@
     bottom: 0;
     left: 0;
     overflow: auto;
+    text-indent:10px;
 }
 
 .groupList {
@@ -24,10 +25,11 @@
 	bottom:0;
 	left:0;
 	overflow: auto;
+     text-indent:10px;
 }
 
 .privateChat {
-    height: 75%;
+    height: 400px;
     background: #14396a url(/private.png) repeat-x;
     color:#cde7f7;
     width:20%;
@@ -39,8 +41,19 @@
 	bottom:0;
 	left:50;
 	overflow: auto;
+  
 }
-
+.privateChat1 {
+    border-style: solid;
+    border-color: #14396a;
+    position:fixed;
+	top:402px;
+	right:0;
+	
+	left:50; 
+	
+  
+}
 
 .msgsList {
     height: 88%;
@@ -54,6 +67,7 @@
     left: 21;
     font: 16px/26px Georgia, Garamond, Serif;
     overflow: auto;
+     text-indent:10px;
 }
 .txtDiv {
     height: 10%;

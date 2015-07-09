@@ -41,11 +41,12 @@
 			</ul>
         
          </div>
-		 <div>
-			<input type="text" style="height:25px; width:400px;" placeholder="Your message" id="privateMsg">
-           <input type="button"  name="send" id="sendPrivate" value="Send" >
-		 </div>
+		 
   </div>
+      <div class="privateChat1">
+          <input type="text" style="height:25px; width:170px;" placeholder="Your message" id="privateMsg">
+          <input type="button" name="send" id="sendPrivate" value="Send">
+      </div>
 </div>
 <div style="float:top;">
     
@@ -110,7 +111,6 @@ $(document).ready(function(){
         socket.on("update", function(who,msg) {
             if(ready)
             {
-               // $("#msgs").append("<li>" + msg + "</li>");
                 $('#lines').append($('<p>').append($('<b>').text(who +': '), msg));
                 }
         })
@@ -128,7 +128,6 @@ $(document).ready(function(){
 
         socket.on("chat", function(who, msg){
             if(ready) {
-               // $("#msgs").append("<li>" + who + " says: " + msg + "</li>");
                  $('#lines').append($('<p>').append($('<b>').text(who +': '), msg));
             }
         });
