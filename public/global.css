@@ -101,7 +101,7 @@
     padding: 16px;
     border: 5px solid orange;
   
-    background: #fff url(/lets.png) repeat-x;
+    background: #fff url(/lets.png) repeat-x ;
     z-index: 1002;
     overflow: auto;
 } 
