@@ -3,10 +3,13 @@ var app=express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var users = require('./data/users');
 
+var people= {};
+users.list(function(chatUsers){
+	people = chatUsers;
+});
 
-
-var people = {}; 
 // rooms which are currently available in chat
 var rooms = [new Object()]; 
 rooms[0].name = 'Public Group';
@@ -21,7 +24,7 @@ io.on('connection', function(client){
   
   client.on('join', function(name){
   people[client.id] = name;
-	
+  users.create(name, client.id, function(){});
 	// store the username in the socket session for this client
 		client.username = name;
 	// store the room name in the socket session for this client
@@ -48,6 +51,9 @@ io.on('connection', function(client){
 	client.on("disconnect", function(){
         io.sockets.emit("update", people[client.id] + " has left the server.");
         delete people[client.id];
+		users.remove(client.id,function(){
+			console.log('Removed user'+client.id);
+		});
         io.sockets.emit("update-people", people);
     });
 	
