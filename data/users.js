@@ -5,14 +5,20 @@ var db = {
 };
 
 var users = {
-  create: function(name, callback) {
-    db.users.insert({name: name }, callback);
+  create: function(name, userid, callback) {
+    db.users.insert({name: name,userid:userid}, callback);
   },
   list: function(callback) {
-    db.users.find({}).exec(callback);
+    db.users.find({}, function(err, docs) {
+		people = {};
+		for (var i = 0; i < docs.length; i++) {
+			people[docs[i].userid] = docs[i].name;
+		}
+		return callback(people);
+  	});
   },
-  remove: function(name, callback) {
-    db.users.remove({name: name }, callback);
+  remove: function(userid, callback) {
+    db.users.remove({userid: userid}, callback);
   }
 };
 

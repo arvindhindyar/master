@@ -7,27 +7,28 @@
 <script src="/socket.io-1.2.0.js"></script>
 <script src="/jquery-1.11.1.js"></script>
 <script src="/jquery.min.js"></script>
+<script src="/common.js"></script>
 
   </head>
   
-  <body onload = "document.getElementById('login').style.display='block';document.getElementById('fade').style.display='block'">
+  <body onload = "document.getElementById('login').style.display='block';">
 
-  <div >
+  <div>
  <div class="userList">
 	<h1><div id="currentUserName"></div></h1>
 	<b>Online Users</b>
-      <ul id="people" style="list-style-type:none"></ul>
+      <ul id="people"></ul>
   </div>
   <div class="groupList">
 	<b>Groups</b> <input type="button" id="addGroupButton" value="Add Group"/>
-      <ul id="rooms" style="list-style-type:none">
+      <ul id="rooms">
 	  </ul>
   </div>
   <div class="msgsList" id="msgsDiv">
        <div id="messages">
             <div id="nicknames"></div>
             <div id="lines">
-            <ul id="msgs" style="list-style-type:none">
+            <ul id="msgs">
             </div>
          </div>
   </div>
@@ -37,219 +38,35 @@
 			<b>Private message Just a click away!</b>
 
 			<h3><div id="userName"></div></h3>
-            <ul id="privateMsgList" style="list-style-type:none;">
+            <ul id="privateMsgList">
 			</ul>
         
          </div>
 		 
   </div>
       <div class="privateChat1">
-          <input type="text" style="height:25px; width:170px;" placeholder="Your message" id="privateMsg">
+          <input type="text"  placeholder="Your message" id="privateMsg">
           <input type="button" name="send" id="sendPrivate" value="Send">
       </div>
 </div>
-<div style="float:top;">
+<div id="loginDiv">
     
     
     <div  id="login" class="white_content">
         <form >
         
-              <input type="text" style="width:290px" placeholder="Your name" id="name">
+              <input type="text" placeholder="Your name" id="name">
             
         </form>
     </div>
 
     <div class="txtDiv" id="chat">
         <form id="2" >
-              <input type="text" style="height:58px; width:500px;" placeholder="Your message" id="msg">
+              <input type="text" placeholder="Your message" id="msg">
            <input type="button"  name="send" id="send" value="Send" >
             <div class="filebutton">Send Image<input type="file" id="imagefile" accept="image/*"></div>
         </form>
     </div>
   </div>
-</div>
-<script>
-var username;
-$(document).ready(function(){  
-        var socket = io.connect();
-        $("#chat").hide();
-        $("#name").focus();
-        $("form").submit(function(event){
-            event.preventDefault();
-        });
-
-        $("#join").click(function(){
-        
-        $('#login').style.display='none';
-        $('#fade').style.display='none';
-        
-            var name = $("#name").val();
-            if (name != "") {
-                socket.emit("join", name);
-                $("#login").detach();
-                $("#chat").show();
-                $("#msg").focus();
-                ready = true;
-            }
-        });
-
-        $("#name").keypress(function(e){
-            if(e.which == 13) {
-                var name = $("#name").val();
-                if (name != "") {
-				username = name;
-				document.getElementById('currentUserName').innerHTML = name;
-                    socket.emit("join", name);
-                    ready = true;
-                    $("#login").detach();
-                    $("#chat").show();
-                    $("#msg").focus();
-                }
-            }
-        });
-
-        socket.on("update", function(who,msg) {
-            if(ready)
-            {
-                $('#lines').append($('<p>').append($('<b>').text(who +': '), msg));
-                }
-        })
-
-        socket.on("update-people", function(people){
-		
-            if(ready) {
-                $("#people").empty();
-                $.each(people, function(clientid, name) {
-					if (name != username)
-                    $('#people').append('<li class="userName"><a href=#>' + name + '</a></li>');
-                });
-            }
-        });
-
-        socket.on("chat", function(who, msg){
-            if(ready) {
-                 $('#lines').append($('<p>').append($('<b>').text(who +': '), msg));
-            }
-        });
-
-        socket.on("disconnect", function(){
-            $("#lines").append("The server is not available");
-            $("#msg").attr("disabled", "disabled");
-            $("#send").attr("disabled", "disabled");
-        });
-		
-		// listener, whenever the server emits 'updaterooms', this updates the room the client is in
-		socket.on('updategroups', function(groups, current_group) {
-		
-			$('#rooms').empty();
-			groups.forEach( function( value) {
-			function checkuser(element, index, array)
-			{	
-			return element == username;}
-			
-			if(value.users.some(checkuser)){
-					if(value.name == current_group){
-						if(current_group != 'Public Group')
-							$('#rooms').append('<li>' + value.name + '<input type="button" class="adduserButton" value="Add user"/></li>');
-						else
-							$('#rooms').append('<li>' + value.name + '</li>');
-					}
-					else {
-						$('#rooms').append('<li class="groupName"><a href=#>' + value.name + '</a></li>');
-					}
-				}
-			});
-			
-		});
-		
-		socket.on('updateusergroups', function(user,groupname) {
-			
-			if(user==username){
-						$('#rooms').append('<li class="groupName"><a href=#>' + groupname + '</a></li>');
-				}
-			});
-			
-		socket.on('updatePrivateChat', function(sender, receiver, msg) {
-			if(receiver == username){
-				document.getElementById('userName').innerHTML = sender;
-						$('#privateMsgList').append('<li>' + sender + ": " + msg + '</li>');
-				}
-			});
-			
-		
-
-	
-		$(document).on("click", ".groupName", function(){ 
-        var clickedGroup = $(this).text();
-            socket.emit('switchGroup', clickedGroup);
-		}); 
-
-		$(document).on("click", ".adduserButton", function(){ 
-        socket.emit('addUserToGroup', prompt("Enter Username "));
-		});
-		
-		$(document).on("click", ".userName", function(){ 
-         var clickedUserName = $(this).text();
-		 document.getElementById('userName').innerHTML = clickedUserName;
-		 $('#privateMsgList').empty();
-		});
-		
-        $("#send").click(function(){
-            var msg = $("#msg").val();
-            socket.emit("send", msg);
-            $("#msg").val("");
-            $("#msgsDiv").scrollTop(10000);
-            $('#lines').get(0).scrollTop = $("#lines").get(0).scrollHeight;
-        });
-		
-		$("#sendPrivate").click(sendPrivate);
-		
-		$("#privateMsg").keypress(function(e){
-            if(e.which == 13) {
-                sendPrivate();
-            }
-        });
-		
-		function sendPrivate(){
-            var msg = $("#privateMsg").val();
-			var receiver = document.getElementById('userName').innerHTML;
-            $("#privateMsg").val("");
-			$('#privateMsgList').append('<li>me: ' + msg + '</li>');
-			socket.emit("sendPrivateMessage", username, receiver, msg);
-        }
-
-        $("#msg").keypress(function(e){
-            if(e.which == 13) {
-                var msg = $("#msg").val();
-                socket.emit("send", msg);
-                $("#msg").val("");
-            }
-        });
-		
-		$("#addGroupButton").click(function(){
-			var name = prompt("Enter new group name ");
-			if (name != "" || name != null) {
-			socket.emit('addGroup', name);
-			}
-        });
-
-        socket.on('user image', image); 
-       function image (from, base64Image) {
-    $('#lines').append($('<p>').append($('<b>').text(from),'<img width="300" height="300" src="' + base64Image + '"/>'));
-  }
-  
-  $('#imagefile').bind('change', function(e){
-      var data = e.originalEvent.target.files[0];
-      var reader = new FileReader();
-      reader.onload = function(evt){
-        image('me', evt.target.result);
-        socket.emit('user image', evt.target.result);
-      };
-      reader.readAsDataURL(data);
-      
-    }); 
-
-    });
-</script>
   </body>
 </html>

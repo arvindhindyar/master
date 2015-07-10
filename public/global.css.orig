@@ -13,7 +13,6 @@
     text-indent:10px;
 }
 
-
 .groupList {
     height: 40%;
     background: #f0e68c;
@@ -42,6 +41,9 @@
 	bottom:0;
 	left:50;
 	overflow: auto;
+<<<<<<< HEAD
+	
+=======
   
 }
 .privateChat1 {
@@ -54,6 +56,7 @@
 	left:50; 
 	
   
+>>>>>>> f1d635440c014f9b5842e7d3c458b0739d2099d9
 }
 
 .msgsList {
@@ -102,26 +105,10 @@
     padding: 16px;
     border: 5px solid orange;
   
-    background: #fff url(/lets.png) repeat-x ;
+    background: #fff url(/lets.png) repeat-x;
     z-index: 1002;
     overflow: auto;
 } 
-#msg{
-	height:58px;
-	width:500px;
-}
-
-#name{
-	width:290px
-}
-#privateMsg{
-	height:25px;
-	width:170px;
-}
-#loginDiv{
-	float:top;
-}
-
 #send {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #63b8ee), color-stop(1, #468ccf));
 	background:-moz-linear-gradient(top, #63b8ee 5%, #468ccf 100%);
@@ -161,6 +148,3 @@ body {
  border-radius:20px;
  -moz-border-radius:20px;
 } 
-ul {
-list-style-type:none ;
-}
