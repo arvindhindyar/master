@@ -98,11 +98,10 @@ $(document).ready(function(){
 				}
 			});
 			
-		socket.on('updatePrivateChat', function(sender, receiver, msg) {
-			if(receiver == username){
+		socket.on('updatePrivateChat', function(sender, msg) {
 				document.getElementById('userName').innerHTML = sender;
 						$('#privateMsgList').append('<li>' + sender + ": " + msg + '</li>');
-				}
+				
 			});
 			
 		
