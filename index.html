@@ -213,10 +213,12 @@ $(document).ready(function(){
 		
 		function sendPrivate(){
             var msg = $("#privateMsg").val();
-			var receiver = document.getElementById('userName').innerHTML;
-            $("#privateMsg").val("");
-			$('#privateMsgList').append('<li>me: ' + msg + '</li>');
-			socket.emit("sendPrivateMessage", username, receiver, msg);
+			if(msg) {
+				var receiver = document.getElementById('userName').innerHTML;
+				$("#privateMsg").val("");
+				$('#privateMsgList').append('<li>me: ' + msg + '</li>');
+				socket.emit("sendPrivateMessage", username, receiver, msg);
+			}
         }
 
         $("#msg").keypress(function(e){
