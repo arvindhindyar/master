@@ -31,7 +31,7 @@
 
 .privateChat {
     height: 400px;
-    background: #14396a url(/private.png) repeat-x;
+    background: #14396a;<!-- url(/private.png) repeat-x;-->
     color:#cde7f7;
     width:20%;
     border-style: solid;
@@ -101,8 +101,8 @@
     height: 190px;
     padding: 16px;
     border: 5px solid orange;
-  
     background: #fff url(/lets.png) repeat-x ;
+    background-size:cover;
     z-index: 1002;
     overflow: auto;
 } 
