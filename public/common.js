@@ -2,6 +2,8 @@ var username;
 $(document).ready(function(){  
         var socket = io.connect();
         $("#chat").hide();
+		$("#privateChatDiv").hide();
+	    $(".privateChat1").hide();
         $("#name").focus();
         $("form").submit(function(event){
             event.preventDefault();
@@ -32,6 +34,8 @@ $(document).ready(function(){
                     ready = true;
                     $("#login").detach();
                     $("#chat").show();
+					$("#privateChatDiv").show();
+					$(".privateChat1").show();
                     $("#msg").focus();
                 }
             }
