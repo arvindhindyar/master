@@ -3,12 +3,22 @@
   <head>
     <title>Socket.IO chat</title>
     <link rel="stylesheet" type="text/css" href="/global.css">
-
-<script src="/socket.io-1.2.0.js"></script>
-<script src="/jquery-1.11.1.js"></script>
-<script src="/jquery.min.js"></script>
-<script src="/common.js"></script>
-
+		<!--Added by Sonal-->
+	<link id='theme' rel='stylesheet' />
+    <link rel='stylesheet' href='css/tipsy.css' />
+    <link rel='stylesheet' href='css/chat.css' />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	
+	<script src="/socket.io-1.2.0.js"></script>
+	<script src="/jquery-1.11.1.js"></script>
+	<script src="/jquery.min.js"></script>
+	<script src="/common.js"></script>
+		<!--Added by Sonal-->
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src='js/jquery-1.11.3.min.js'></script>
+    <script src='js/jquery-ui-1.10.4.custom.min.js'></script>
+    <script src='js/jquery.tipsy.js'></script>
+	 <script src='js/i18n_en.js'></script>
   </head>
   
   <body onload = "document.getElementById('login').style.display='block';">
@@ -55,7 +65,7 @@
     <div  id="login" class="white_content">
         <form >
         
-              <input type="text" placeholder="Your name" id="name">
+              <input type="text" style="text-style:bold;border:6px double lightgreen" placeholder="Input your Name to Start Chat" id="name">
             
         </form>
     </div>

@@ -4,7 +4,10 @@ $(document).ready(function(){
         $("#chat").hide();
 		$("#privateChatDiv").hide();
 	    $(".privateChat1").hide();
-        $("#name").focus();
+		   setTimeout(function(){
+               $("#name").focus();
+            }, 1);
+      
         $("form").submit(function(event){
             event.preventDefault();
         });
